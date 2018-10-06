@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+<!--{% load render_bundle from webpack_loader %}-->
+
+{% block main %}
+<!--
+<div id="SampleApp"></div>
+{% render_bundle 'vendors' %}
+{% render_bundle 'SampleApp' %}-->
+
+ <head>
+  <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}" charset="UTF-8">
+ </head>
+ <body>
+ <div class="chat-title">
+  <h1>BlackRock</h1>
+ <h2>Jarvis</h2>
+ </div>
+ <h1>BlackRock</h1>
+ <h2>Jarvis</h2>
+ <div>
+ <div id="chatbox">
+ <p class="botText"><span>Hi! I'm Jarvis.</span></p>
+ </div>
+ <div id="userInput">
+ <input id="textInput" type="text" name="msg" placeholder="Message">
+ <input id="buttonInput" type="submit" value="Send">
+ </div>
+ <script>
+ function getBotResponse() {
+ var rawText = $("#textInput").val();
+ var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+ $("#textInput").val("");
+ $("#chatbox").append(userHtml);
+ document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+ $.get("/get", { msg: rawText }).done(function(data) {
+ var botHtml = '<p class="botText"><span>' + data + '</span></p>';
+ $("#chatbox").append(botHtml);
+ document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+ });
+ }
+ $("#textInput").keypress(function(e) {
+ if(e.which == 13) {
+ getBotResponse();
+ }
+ });
+ $("#buttonInput").click(function() {
+ getBotResponse();
+ })
+ </script>
+ </div>
+ <img src="{% static '/images/kangana-Ranaut-photos-images-pics-Download.jpg' %}" width="50%" height="50%">
+ </body>
+
+{% endblock %}

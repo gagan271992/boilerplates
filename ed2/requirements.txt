@@ -1,0 +1,4 @@
+Django
+webpack
+django-webpack-loader
+flask
